@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import Modal from "../components/Modal";
 import { Trash2, SquarePen, Plus } from "lucide-react";
 
 export default function CategoriesPage() {
@@ -19,7 +20,7 @@ export default function CategoriesPage() {
       <Navbar name="Categories" />
       <div className="w-full overflow-x-auto sm:p-2 md:p-5">
         <div className="w-full flex justify-end mb-3">
-          <button className="flex items-center bg-[#5558f1] text-white py-1 px-3 rounded-md cursor-pointer md:py-2 md:px-5 md:text-xl text-xs">
+          <button className="flex items-center bg-[#5558f1] text-white py-1 px-3 rounded-md cursor-pointer md:py-2 md:px-5 md:text-[16px] text-xs gap-1">
             <Plus size={18} />
             <span className=""> Add Category</span>
           </button>
