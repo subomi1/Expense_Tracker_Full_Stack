@@ -17,13 +17,13 @@ export default function CategoriesPage() {
   return (
     <div className="w-full">
       <Navbar name="Categories" />
-      <div className="w-full flex justify-end p-5 mb-1">
-        <button className="flex items-center bg-[#5558f1] text-white py-2 px-5 rounded-md cursor-pointer">
-          <Plus />
-          Add Category
-        </button>
-      </div>
-      <div className="w-full overflow-x-auto sm:p-2 md:p-5 mt-[-20px]">
+      <div className="w-full overflow-x-auto sm:p-2 md:p-5">
+        <div className="w-full flex justify-end mb-3">
+          <button className="flex items-center bg-[#5558f1] text-white py-1 px-3 rounded-md cursor-pointer md:py-2 md:px-5 md:text-xl text-xs">
+            <Plus size={18} />
+            <span className=""> Add Category</span>
+          </button>
+        </div>
         <table className="w-full border-collapse shadow-lg rounded-2xl overflow-hidden">
           {/* Header */}
           <thead>
@@ -44,11 +44,11 @@ export default function CategoriesPage() {
                 <td className="p-3">{row.name}</td>
                 <td className="p-3">{row.description}</td>
                 <td className="p-3 flex justify-start gap-4 items-center">
-                  <button className="text-red-500 hover:text-red-700 cursor-pointer">
-                    <Trash2 size={18} />
-                  </button>
                   <button className="text-blue-500 hover:text-blue-700 cursor-pointer">
                     <SquarePen size={18} />
+                  </button>
+                  <button className="text-red-500 hover:text-red-700 cursor-pointer">
+                    <Trash2 size={18} />
                   </button>
                 </td>
               </tr>
