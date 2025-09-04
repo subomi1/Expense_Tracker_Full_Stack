@@ -1,8 +1,17 @@
 import Navbar from "../components/Navbar";
-import Modal from "../components/Modal";
 import { Trash2, SquarePen, Plus } from "lucide-react";
+import { useQuery } from '@tanstack/react-query';
+import { getCategories } from "../http";
 
 export default function CategoriesPage() {
+
+  const { data } = useQuery({
+    queryKey: ['category'],
+    queryFn: getCategories
+  })
+  console.log(data);
+  
+  
   const rows = [
     {
       id: 1,

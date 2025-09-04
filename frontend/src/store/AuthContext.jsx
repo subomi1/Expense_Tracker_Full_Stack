@@ -3,43 +3,57 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(() => {
-    // Load from localStorage if available
-    const storedAuth = localStorage.getItem("auth");
-    return storedAuth
-      ? JSON.parse(storedAuth)
-      : { user: null, email: null, accessToken: null };
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || null;
+  });
+  const [email, setEmail] = useState(() => {
+    return JSON.parse(localStorage.getItem("email")) || null;
+  });
+  const [accessToken, setAccessToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("access")) || null;
+  });
+  const [refreshToken, setRefreshToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("refresh")) || null;
   });
 
-  // Keep localStorage in sync with state
+  // keep state in sync with localStorage
   useEffect(() => {
-    if (auth.user) {
-      localStorage.setItem("auth", JSON.stringify(auth));
-    } else {
-      localStorage.removeItem("auth");
-    }
-  }, [auth]);
+    if (user) localStorage.setItem("user", JSON.stringify(user));
+    else localStorage.removeItem("user");
+  }, [user]);
 
-  const login = async (email, password) => {
+  useEffect(() => {
+    if (email) localStorage.setItem("email", JSON.stringify(email));
+    else localStorage.removeItem("email");
+  }, [email]);
+
+  useEffect(() => {
+    if (accessToken)
+      localStorage.setItem("access", JSON.stringify(accessToken));
+    else localStorage.removeItem("access");
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (refreshToken)
+      localStorage.setItem("refresh", JSON.stringify(refreshToken));
+    else localStorage.removeItem("refresh");
+  }, [refreshToken]);
+
+  // ✅ login stores both access + refresh
+  const login = async (identifier, password) => {
     try {
       const response = await fetch("http://localhost:8000/api/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
+        body: JSON.stringify({ email: identifier, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-
-        const newAuth = {
-          user: data.username,
-          email: data.email,
-          accessToken: data.access,
-        };
-
-        setAuth(newAuth); // React state
-        localStorage.setItem("auth", JSON.stringify(newAuth)); // Persistent storage
+        setEmail(data.email);
+        setUser(data.username);
+        setAccessToken(data.access);
+        setRefreshToken(data.refresh);
 
         return true;
       } else {
@@ -57,20 +71,26 @@ export const AuthProvider = ({ children }) => {
       await fetch("http://localhost:8000/api/logout/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({}),
       });
     } catch (error) {
       console.error("Error logging out:", error);
     }
-
-    setAuth({ user: null, email: null, accessToken: null });
-    localStorage.removeItem("auth");
+    setUser(null)
+    setEmail(null)
+    setAccessToken(null)
+    setRefreshToken(null)
+    localStorage.removeItem("user");
+    localStorage.removeItem("email");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
   };
-  console.log("New access token:", auth.accessToken);
+
+  console.log(user, email, accessToken, refreshToken);
 
   return (
-    <AuthContext.Provider value={{ ...auth, login, logout }}>
+    <AuthContext.Provider
+      value={{ login, user, email, accessToken, refreshToken, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
