@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status, serializers
 from rest_framework.views import APIView
@@ -29,3 +29,33 @@ class AddCategory(APIView):
             return Response(serializers.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message": str(e)}, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class categoryView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, id):
+        try:
+            category = get_object_or_404(CategoryModel, id=id, user=request.user)
+            serializers = CategorySerializer(category)
+            return Response(serializers.data, status= status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message": str(e)}, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def delete(self, request, id):
+        try:
+            category = get_object_or_404(CategoryModel, id=id, user = request.user )
+            category.delete()
+            return Response({"Message": "Category successfully deleted"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            pass
+        
+    def put(self, request, id):
+        try:
+            category = get_object_or_404(CategoryModel, id = id, user = request.user)
+            serializer = CategorySerializer(category, data = request.data, partial = True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"Message": "Category updated successfully"}, status=status.HTTP_200_OK)
+            return Response({"Errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            pass
+        
