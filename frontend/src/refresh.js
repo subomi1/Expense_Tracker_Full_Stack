@@ -1,6 +1,6 @@
-export async function authFetch(url, options = {}) {
-  let accessToken = JSON.parse(localStorage.getItem("access"));
-  let refreshToken = JSON.parse(localStorage.getItem("refresh"));
+export async function authFetch(url, options = {}, logout) {
+  let accessToken = JSON.parse(localStorage.getItem("access") || "null");
+  let refreshToken = JSON.parse(localStorage.getItem("refresh") || "null");
 
   options.headers = {
     ...options.headers,
@@ -34,6 +34,7 @@ export async function authFetch(url, options = {}) {
     } else {
       // refresh also failed → log out user
       console.log("❌ Refresh token invalid/expired");
+      if (logout) logout();
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       throw new Error("Session expired, please login again");
