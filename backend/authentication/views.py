@@ -86,8 +86,9 @@ def refresh_token(request):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def logout(request):
-    refresh_token = request.COOKIES.get('refresh_token')
+    refresh_token = request.data.get('refresh_token')
     if refresh_token is None:
         return Response({"error": "No refresh token"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -95,9 +96,6 @@ def logout(request):
         token = RefreshToken(refresh_token)
         token.blacklist()
     except TokenError:
-        pass  # already expired or invalid
+        pass
 
-    response = Response({"message": "Logout successful"},
-                        status=status.HTTP_205_RESET_CONTENT)
-    response.delete_cookie("refresh_token")
-    return response
+    return Response({"message": "Logout successful"}, status=status.HTTP_205_RESET_CONTENT)
