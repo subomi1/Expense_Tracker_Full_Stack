@@ -24,7 +24,7 @@ class Inexpenses(APIView):
         try:
             serializers = InexpensesSerializer(data = request.data)
             if serializers.is_valid():
-                serializers.save()
+                serializers.save(user = request.user)
                 return Response({"message":"Expense created successfully"}, status=status.HTTP_201_CREATED)
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
