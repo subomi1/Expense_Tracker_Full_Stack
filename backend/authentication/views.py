@@ -12,6 +12,7 @@ import datetime
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def register(request):
     user = UserSerializer(data=request.data)
 
