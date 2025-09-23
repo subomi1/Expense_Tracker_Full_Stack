@@ -7,6 +7,7 @@ class CategoryModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="category")
     title = models.CharField(max_length=200)
     description = models.TextField()
+    type = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
