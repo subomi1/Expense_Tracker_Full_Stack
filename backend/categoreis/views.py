@@ -13,14 +13,15 @@ from .models import CategoryModel
 class AddCategory(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
-        try:
+        # try:
             serializers = CategorySerializer(data = request.data)
             if serializers.is_valid():
                 serializers.save(user = request.user)
                 return Response({"message": "category created succesfully"}, status= status.HTTP_201_CREATED)
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({"message": str(e)}, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # except Exception as e:
+            
+            # return Response({"message": str(e)}, status= status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     def get(self, request):
         try:
