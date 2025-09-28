@@ -68,24 +68,27 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      const access = JSON.parse(localStorage.getItem("access"));
       await fetch("http://localhost:8000/api/logout/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: refreshToken }),
+        Authorization: `Bearer ${access}`,
       });
     } catch (error) {
       console.error("Error logging out:", error);
     }
-    setUser(null)
-    setEmail(null)
-    setAccessToken(null)
-    setRefreshToken(null)
+    setUser(null);
+    setEmail(null);
+    setAccessToken(null);
+    setRefreshToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("email");
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
   };
 
-  console.log(user, email, accessToken, refreshToken);
+  console.log(accessToken);
 
   return (
     <AuthContext.Provider
