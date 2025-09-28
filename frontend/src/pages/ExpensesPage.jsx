@@ -1,8 +1,16 @@
-import Navbar from "../components/Navbar"
-export default function ExpensesPage() {
-    return(
-        <div className="w-full">
-            <Navbar name="Expenses"/>
-        </div>
-    )
+import Navbar from "../components/Navbar";
+import { useEffect, useContext } from "react";
+import PageContext from "../store/PageContext";
+import ExpensesAndIncomeDetail from "../components/ExpenseAndIncomeDetail";
+
+export default function IncomePage() {
+  const { expensePage } = useContext(PageContext)
+  useEffect(() => {
+    expensePage();
+  }, [expensePage]);
+  return (
+    <div className="w-full">
+      <ExpensesAndIncomeDetail />
+    </div>
+  );
 }
