@@ -71,3 +71,4 @@ pytest_cache/
 *.swo
 .DS_Store
 Thumbs.db
+.env
