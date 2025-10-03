@@ -61,10 +61,29 @@
 }
 
 body{
-  background-color: #F5F3F0;
+  background-color: #121212;
 }
 
 
 .break {
   word-break: break-all;
 }
+
+
+  /* "primary": "#008080",
+  "accent": "#FFA500",
+  "background": "#121212",
+  "text": "#EAEAEA",
+  "card": "#1E1E1E", */
+
+/* 
+                primary: "#008080",
+              accent: "#FFA500",
+              "background-light": "#f5f8f8",
+              "background-dark": "#121212",
+              "card-background-light": "#ffffff",
+              "card-background-dark": "#1E1E1E",
+              "text-light": "#121212",
+              "text-dark": "#EAEAEA",
+              "text-muted-light": "#6b7280",
+              "text-muted-dark": "#9ca3af", */
