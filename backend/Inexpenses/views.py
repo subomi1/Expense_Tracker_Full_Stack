@@ -21,14 +21,15 @@ class Inexpenses(APIView):
             return Response({"errors": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     def post(self, request):
-        try:
+        # try:
             serializers = InexpensesSerializer(data = request.data)
             if serializers.is_valid():
                 serializers.save(user = request.user)
                 return Response({"message":"Expense created successfully"}, status=status.HTTP_201_CREATED)
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({"errors": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # except Exception as e:
+        #     pass
+            # return Response({"errors": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class Inexpense(APIView):

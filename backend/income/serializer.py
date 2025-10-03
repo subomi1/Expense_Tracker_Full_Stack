@@ -1,13 +1,14 @@
 from rest_framework import serializers
-from .models import InexpensesModels
+
+from .models import IncomeModels
 
 
-class InexpensesSerializer(serializers.ModelSerializer):
+class IncomeSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(
         source="category.title", read_only=True)
     category_description = serializers.CharField(
         source="category.description", read_only=True)
 
     class Meta:
-        model = InexpensesModels
-        fields = ['id', 'category', 'amount', 'date', 'category_name', 'category_description']
+        model = IncomeModels
+        fields = ['id', 'amount', 'date', 'category', 'category_name', 'category_description']
