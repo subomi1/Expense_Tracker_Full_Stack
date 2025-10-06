@@ -63,7 +63,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # your React app
+    "http://localhost:5173", 
+    "https://expense-tracker-full-stack-h9sn.onrender.com"# your React app
 ]
 
 CORS_ALLOW_CREDENTIALS = True
