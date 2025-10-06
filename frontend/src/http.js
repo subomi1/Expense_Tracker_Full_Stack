@@ -1,7 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { authFetch } from "./refresh";
 
-let baseUrl = "https://expense-tracker-full-stack-h9sn.onrender.com";
+let baseUrl = "https://expense-tracker-full-stack-h9sn.onrender.com/api";
 
 export const queryClient = new QueryClient();
 
