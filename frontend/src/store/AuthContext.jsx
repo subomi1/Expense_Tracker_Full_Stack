@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ login stores both access + refresh
   const login = async (identifier, password) => {
     try {
-      const response = await fetch("http://localhost:8000/api/login/", {
+      const response = await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: identifier, password }),
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       const access = JSON.parse(localStorage.getItem("access"));
-      await fetch("http://localhost:8000/api/logout/", {
+      await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/logout/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh_token: refreshToken }),
