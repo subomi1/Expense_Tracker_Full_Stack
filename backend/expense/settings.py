@@ -29,7 +29,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-secret")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "expense-tracker-full-stack-h9sn.onrender.com"
+]
 
 
 # Application definition
@@ -63,8 +65,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", 
-    "https://expense-tracker-full-stack-h9sn.onrender.com"# your React app
+    "http://localhost:5173",
+    "https://expense-tracker-full-stack-roan.vercel.app"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
