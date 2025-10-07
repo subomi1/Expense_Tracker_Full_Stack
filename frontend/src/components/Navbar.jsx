@@ -13,8 +13,9 @@ const Navbar = ({ name }) => {
       <h1 className="text-[#EAEAEA] text-2xl font-bold">{name}</h1>
       <div className="flex items-center gap-3">
         {user ? (
-          <div className="w-[50px] h-[50px] rounded-full flex justify-center items-center text-4xl border-[1px] border-[#008080]">
-            <span className="mt-[-9px] text-[#008080]">{firstLetter}</span>
+          <div className="flex items-center justify-center w-8 h-8 rounded-full border border-[#008080] text-[#008080] text-lg font-medium uppercase">
+            {/* <span className=" sm:mt-[-9px] text-[#008080]">{firstLetter}</span> */}
+            {firstLetter}
           </div>
         ) : (
           <div className="w-[50px] h-[50px] bg-transparent rounded-full flex justify-center items-center text-4xl">

@@ -236,12 +236,12 @@ export default function Homepage() {
             <select
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
-              className="border px-3 py-1 rounded-md self-start focus:outline-none mb-3"
+              className="border px-3 py-1 rounded-md self-start focus:outline-none mb-3 border-[#008080] text-[#008080] bg-black flex items-center"
             >
-              <option value="expenses" className="rounded-t-md">
+              <option value="expenses" className="bg-[#111] text-[#008080]">
                 Expenses
               </option>
-              <option value="income">Income</option>
+              <option value="income" className="text-[#008080] bg-black">Income</option>
             </select>
             <p className="font-semibold text-lg mb-3 self-start text-[#EAEAEA]">
               Categories for {selected}
@@ -254,7 +254,7 @@ export default function Homepage() {
                   options={{ responsive: true, maintainAspectRatio: false }}
                 />
               ) : (
-                <div className="w-full h-full flex justify-center items-center font-semibold text-[#7A4433]">
+                <div className="w-full h-full flex justify-center items-center font-semibold text-[#008080]">
                   <p>No Data Recieved Yet</p>
                 </div>
               )}
@@ -308,17 +308,17 @@ export default function Homepage() {
                   }}
                 />
               ) : !user ? (
-                <div className="w-full h-full flex flex-col justify-center items-center font-semibold text-[#7A4433]">
+                <div className="w-full h-full flex flex-col justify-center items-center font-semibold text-[#008080]">
                   <p>No Data Recieved Yet</p>
                   <Link
                     to="/login"
-                    className="cursor-pointer bg-amber-950 px-5 py-2 text-[#CDAF94] rounded-md font-semibold hover:border-[1px] hover:border-[#CDAF94] hover:bg-transparent transition-all duration-300 hover:text-amber-950 mt-2"
+                    className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent mt-3 text-xs md:text-sm"
                   >
                     Login
                   </Link>
                 </div>
               ) : (
-                <div className="w-full h-full flex flex-col justify-center items-center font-semibold text-[#7A4433]">
+                <div className="w-full h-full flex flex-col justify-center items-center font-semibold text-[#008080]">
                   <p>No Data Recieved Yet</p>
                 </div>
               )}

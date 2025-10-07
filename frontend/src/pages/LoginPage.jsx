@@ -26,7 +26,7 @@ export default function Login() {
         <form
           action=""
           onSubmit={handleSubmit}
-          className="flex flex-col w-full max-w-[600px] py-10"
+          className="flex flex-col w-full max-w-[600px] py-10 md:px-2 px-4 md:py-5"
         >
           <label htmlFor="" className="mb-3 font-bold text-[#008080]">
             Email or Username

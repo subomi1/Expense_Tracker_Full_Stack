@@ -240,13 +240,13 @@ export default function CategoriesPage() {
           {content}
         </table>
         {!user ? (
-          <div className="w-full flex flex-col items-center justify-center mt-[130px]">
-            <p className="font-bold text-[#008080]">
+          <div className="w-full flex flex-col items-center justify-center mt-[60px] md:mt-[130px]">
+            <p className="font-bold text-[#008080] text-xs md:text-lg">
               Login to view your Categories
             </p>
             <Link
               to="/login"
-              className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent mt-3"
+              className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent mt-3 text-xs md:text-sm"
             >
               Login
             </Link>
