@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 export default function Login() {
-  const { login } = useContext(AuthContext);
+  const { login, loginLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
@@ -47,8 +47,8 @@ export default function Login() {
             className="border-[1px] rounded-md  border-[#A8A2A3] px-4 py-2 focus:outline-0 mb-5 text-[#000606] bg-white"
           />
           <div className="w-full flex justify-center">
-            <button className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent">
-              Login
+            <button className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent" disabled={loginLoading}>
+              {loginLoading ? "Logging In": "Login"}
             </button>
           </div>
           <div className="w-full flex justify-center">

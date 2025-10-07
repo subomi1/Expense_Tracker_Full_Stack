@@ -30,7 +30,7 @@ export default function CategoriesPage() {
     queryFn: () => getCategories({ logout }),
     enabled: !!access,
   });
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: postCategories,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["category"] });
@@ -122,10 +122,16 @@ export default function CategoriesPage() {
             <td className="p-3">{row.type}</td>
             <td className="p-3 flex justify-start gap-4 items-center">
               <button className="text-blue-500 hover:text-blue-700 cursor-pointer">
-                <SquarePen onClick={() => handleOpen(row)} className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"/>
+                <SquarePen
+                  onClick={() => handleOpen(row)}
+                  className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                />
               </button>
               <button className="text-red-500 hover:text-red-700 cursor-pointer">
-                <Trash2 onClick={() => handleDelete(row.id)} className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"/>
+                <Trash2
+                  onClick={() => handleDelete(row.id)}
+                  className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                />
               </button>
             </td>
           </tr>
@@ -187,7 +193,14 @@ export default function CategoriesPage() {
                   </label>
                 </div>
               </div>
-              <button type="submit">submit</button>
+              <div className="w-full flex justify-end">
+                <button
+                  type="submit"
+                  className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent"
+                >
+                  {isPending ? "Submitting" : "Submit"}
+                </button>
+              </div>
             </form>
           </Modal>
         )}
@@ -203,7 +216,13 @@ export default function CategoriesPage() {
         <div className="w-full flex justify-end mb-3">
           <button
             className="flex items-center bg-[#008080]/30 text-[#008080] py-1 px-3 rounded-md cursor-pointer md:py-2 md:px-5 md:text-[16px] text-xs gap-1 hover:bg-black hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080]"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              if (!user) {
+                alert("Please log in first!");
+                return;
+              }
+              setShowModal(true);
+            }}
           >
             <Plus size={18} />
             <span className=""> Add Category</span>
@@ -221,13 +240,13 @@ export default function CategoriesPage() {
           {content}
         </table>
         {!user ? (
-          <div className="w-full flex flex-col items-center justify-center mt-10">
-            <p className="font-bold text-[#CDAF94]">
+          <div className="w-full flex flex-col items-center justify-center mt-[130px]">
+            <p className="font-bold text-[#008080]">
               Login to view your Categories
             </p>
             <Link
               to="/login"
-              className="cursor-pointer bg-amber-950 px-5 py-2 text-[#CDAF94] rounded-md font-semibold hover:border-[1px] hover:border-[#CDAF94] hover:bg-transparent transition-all duration-300 hover:text-amber-950 mt-2"
+              className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent mt-3"
             >
               Login
             </Link>

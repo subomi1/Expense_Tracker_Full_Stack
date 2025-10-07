@@ -272,8 +272,8 @@ export default function ExpensesAndIncomeDetail() {
                   defaultValue={value}
                   onValueChange={(value, name, values) => {
                     console.log("Raw:", value);
-                    setValue(value); // e.g. 5000
-                    console.log("Formatted:", values.formattedValue); // ₦5,000.00
+                    setValue(value);
+                    console.log("Formatted:", values.formattedValue);
                   }}
                   className="border-[1px] rounded-md  border-[#A8A2A3] px-4 py-2 focus:outline-0"
                 />
@@ -392,7 +392,7 @@ export default function ExpensesAndIncomeDetail() {
               <div className="w-full flex justify-end">
                 <button
                   type="submit"
-                  className="cursor-pointer bg-amber-950 px-5 py-2 text-[#CDAF94] rounded-md font-semibold"
+                  className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent"
                 >
                   submit
                 </button>
@@ -403,7 +403,13 @@ export default function ExpensesAndIncomeDetail() {
         <div className="w-full flex justify-end mb-3">
           <button
             className="flex items-center bg-[#008080]/30 text-[#008080] py-1 px-3 rounded-md cursor-pointer md:py-2 md:px-5 md:text-[16px] text-xs gap-1 hover:bg-black hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080]"
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              if (!user) {
+                alert("Please log in first!");
+                return;
+              }
+              setIsOpen(true);
+            }}
           >
             <Plus size={18} />
             <span className="">{`Add ${page}`}</span>
@@ -420,19 +426,14 @@ export default function ExpensesAndIncomeDetail() {
           </thead>
           {content}
         </table>
-        <div className="flex justify-end mt-6">
-          <button className="bg-primary hover:bg-primary/80 text-white rounded-full p-4 shadow-lg transition-all duration-300 transform hover:scale-105">
-            <span className="material-symbols-outlined text-3xl">+</span>
-          </button>
-        </div>
         {!user ? (
-          <div className="w-full flex flex-col items-center justify-center mt-10">
-            <p className="font-bold text-[#CDAF94]">
-              Login to view your {`${page}s`}
+          <div className="w-full flex flex-col items-center justify-center mt-[130px]">
+            <p className="font-bold text-[#008080]">
+              Login to view your {page} Details
             </p>
             <Link
               to="/login"
-              className="cursor-pointer bg-amber-950 px-5 py-2 text-[#CDAF94] rounded-md font-semibold hover:border-[1px] hover:border-[#CDAF94] hover:bg-transparent transition-all duration-300 hover:text-amber-950 mt-2"
+              className="cursor-pointer bg-[#008080]/30 text-[#008080] px-5 py-2 rounded-md font-semibold hover:text-[#008080] border-1 border-black duration-300 ease-in-out hover:border-1 hover:border-[#008080] hover:bg-transparent mt-3"
             >
               Login
             </Link>

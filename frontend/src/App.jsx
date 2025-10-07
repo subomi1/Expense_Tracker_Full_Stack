@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import Mainlayout from "./layout/Mainlayout";
 import Homepage from "./pages/Homepage";
@@ -18,11 +19,12 @@ import { queryClient } from "./http";
 function App() {
   const routes = createRoutesFromElements(
     <Route path="/" element={<Mainlayout />}>
+      <Route index element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Homepage />} />
       <Route path="/expenses" element={<ExpensesPage />} />
       <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/income" element={<IncomePage />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Route>
   );

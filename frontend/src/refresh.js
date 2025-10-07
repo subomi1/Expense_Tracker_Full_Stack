@@ -13,7 +13,7 @@ export async function authFetch(url, options = {}, logout) {
   if (response.status === 401 && refreshToken) {
     console.log("⚠️ Access token expired, trying refresh...");
     // try refresh
-    const refreshResponse = await fetch("http://localhost:8000/api/refresh/", {
+    const refreshResponse = await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/api/refresh/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh: refreshToken }),

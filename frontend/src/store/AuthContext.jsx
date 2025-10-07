@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }) => {
   const [refreshToken, setRefreshToken] = useState(() => {
     return JSON.parse(localStorage.getItem("refresh")) || null;
   });
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   // keep state in sync with localStorage
   useEffect(() => {
@@ -39,34 +41,37 @@ export const AuthProvider = ({ children }) => {
     else localStorage.removeItem("refresh");
   }, [refreshToken]);
 
-  // ✅ login stores both access + refresh
-  const login = async (identifier, password) => {
-    try {
-      const response = await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/api/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: identifier, password }),
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        setEmail(data.email);
-        setUser(data.username);
-        setAccessToken(data.access);
-        setRefreshToken(data.refresh);
+const login = async (identifier, password) => {
+  setLoginLoading(true); 
+  try {
+    const response = await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/api/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: identifier, password }),
+    });
 
-        return true;
-      } else {
-        console.log("Login failed");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error logging in:", error);
+    if (response.ok) {
+      const data = await response.json();
+      setEmail(data.email);
+      setUser(data.username);
+      setAccessToken(data.access);
+      setRefreshToken(data.refresh);
+      return true;
+    } else {
+      console.log("Login failed");
       return false;
     }
-  };
+  } catch (error) {
+    console.error("Error logging in:", error);
+    return false;
+  } finally {
+    setLoginLoading(false);
+  }
+};
 
   const logout = async () => {
+    setLogoutLoading(true)
     try {
       const access = JSON.parse(localStorage.getItem("access"));
       await fetch("https://expense-tracker-full-stack-h9sn.onrender.com/api/logout/", {
@@ -77,6 +82,8 @@ export const AuthProvider = ({ children }) => {
       });
     } catch (error) {
       console.error("Error logging out:", error);
+    }finally {
+      setLogoutLoading(false);
     }
     setUser(null);
     setEmail(null);
@@ -92,7 +99,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, user, email, accessToken, refreshToken, logout }}
+      value={{ login, user, email, accessToken, refreshToken, logout, loginLoading, logoutLoading }}
     >
       {children}
     </AuthContext.Provider>

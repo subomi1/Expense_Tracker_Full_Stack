@@ -115,8 +115,6 @@ export default function Homepage() {
       return acc;
     }, {}) || {};
 
-  const hasBarData = Object.keys(groupedByMonth).length > 0;
-
   const categories = Array.from(
     new Set([
       ...(ExpenseData?.map((e) => e.category_name) || []),
