@@ -66,7 +66,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://expense-tracker-full-stack-roan.vercel.app"
+    "https://expense-tracker-full-stack-roan.vercel.app",
+    "https://expense-tracker-full-stack-one.vercel.app"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
